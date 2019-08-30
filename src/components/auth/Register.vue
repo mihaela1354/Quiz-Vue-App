@@ -14,8 +14,19 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      username:"",
+      password:""
+    };
+  },
+  created() {
+   
+  }
+}
 </script>
+
 
 <style scoped>
 *{
