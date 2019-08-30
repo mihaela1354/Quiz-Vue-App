@@ -4,11 +4,18 @@
       <h2>Question #{{questionNumber}}: {{currentQuestion.title}}</h2>
       <form @submit.prevent="loadNextQuestion">
         <div v-for="(answer, index) in currentQuestion.answers" :key="index">
-          <input class="form-radio" type="radio" :value="answer.content" v-model="currentQuestionAnswer" checked/>
-          <label >{{answer.content}}</label>
+          <input
+            class="form-radio"
+            type="radio"
+            :value="answer.content"
+            v-model="currentQuestionAnswer"
+            checked
+          />
+          <label>{{answer.content}}</label>
         </div>
         <input class="next" type="submit" value="Next" />
       </form>
+      <h1>{{time}}</h1>
     </template>
     <template v-else>
       <h1>Your score is:</h1>
@@ -20,6 +27,7 @@
 <script>
 import questions from "@/data/questions.json";
 import quizes from "@/data/quizes.json";
+import { setInterval, clearInterval } from "timers";
 
 export default {
   data() {
@@ -32,7 +40,9 @@ export default {
       currentQuestionAnswer: "",
       rightAnswer: "",
       questionNumber: 1,
-      score: 0
+      score: 0,
+      time: 60,
+      interval: null
     };
   },
   created() {
@@ -45,6 +55,10 @@ export default {
     this.rightAnswer = this.currentQuestion.answers.find(
       q => q.isRight
     ).content;
+
+    this.interval = setInterval(() => {
+      this.time--;
+    }, 1000);
   },
   methods: {
     loadNextQuestion() {
@@ -70,19 +84,31 @@ export default {
     scorePercentage() {
       return Math.trunc((this.score / this.questionNumber) * 100);
     }
+  },
+  watch: {
+    time(next, previous) {
+      if (next === 0) {
+        this.hasQuestions = false;
+        clearInterval(this.interval);
+      }
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
   }
 };
 </script>
 
 <style scoped>
-*{
-  display:block;
+* {
+  display: block;
   width: 60%;
-  margin:auto;
+  margin: auto;
   text-align: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-h2{
+h2 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -92,77 +118,74 @@ form {
   margin-bottom: 12rem;
   padding: 2rem 5rem 2rem 5rem;
 }
-div input,label{
- display:inline-block; 
- margin: 5px;
+div input,
+label {
+  display: inline-block;
+  margin: 5px;
 }
-.form-radio
-{
-     -webkit-appearance: none;
-     -moz-appearance: none;
-     appearance: none;
-     display: inline-block;
-     position: relative;
-     background-color: #f1f1f1;
-     color: #666;
-     top: 10px;
-     height: 30px;
-     width: 30px;
-     border: 0;
-     border-radius: 50px;
-     cursor: pointer;     
-     margin-right: 7px;
-     outline: none;
+.form-radio {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  position: relative;
+  background-color: #f1f1f1;
+  color: #666;
+  top: 10px;
+  height: 30px;
+  width: 30px;
+  border: 0;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-right: 7px;
+  outline: none;
 }
-.form-radio:checked::before
-{
-     position: absolute;
-     font: 13px/1 'Open Sans', sans-serif;
-     left: 11px;
-     top: 7px;
-     content: '\02143';
-     transform: rotate(40deg);
+.form-radio:checked::before {
+  position: absolute;
+  font: 13px/1 "Open Sans", sans-serif;
+  left: 11px;
+  top: 7px;
+  content: "\02143";
+  transform: rotate(40deg);
 }
-.form-radio:hover
-{
-     background-color: #f7f7f7;
+.form-radio:hover {
+  background-color: #f7f7f7;
 }
-.form-radio:checked
-{
-     background-color: #f1f1f1;
+.form-radio:checked {
+  background-color: #f1f1f1;
 }
-label
-{
-     font: 15px/1.7 'Open Sans', sans-serif;
-     color: #333;
-     -webkit-font-smoothing: antialiased;
-     -moz-osx-font-smoothing: grayscale;
-     cursor: pointer;
-     font-size: 19px;
-     text-align: left;
-     padding-left:20px;
-} 
-form div{
+label {
+  font: 15px/1.7 "Open Sans", sans-serif;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: pointer;
+  font-size: 19px;
+  text-align: left;
+  padding-left: 20px;
+}
+form div {
   background-color: rgba(123, 143, 136, 0.171);
   width: 100%;
-  margin-bottom:12px;
-  margin-top:12px;
-  border:5px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  border: 5px;
   border-radius: 5px;
 }
-.next{
- background-color: rgba(193, 214, 207, 0.603);
+.next {
+  background-color: rgba(193, 214, 207, 0.603);
   width: 100%;
-  margin-bottom:9px;
-  margin-top:9px;
-  border-color:green;
+  margin-bottom: 9px;
+  margin-top: 9px;
+  border-color: green;
   border-radius: 5px;
   padding: 15px;
   text-align: center;
 }
-.score{
-   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-   font-size:25px;
-   color:darkgreen;
+.score {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 25px;
+  color: darkgreen;
 }
 </style>
