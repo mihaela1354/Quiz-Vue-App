@@ -35,16 +35,22 @@ footer{
     bottom: 0;
     height: 20px;
     margin: 0 auto;
+    display:flex;
+}
+footer div a{
+  display:inline-block;
 }
 footer div{
+  margin:0 auto;
+  display:inline-block;
+  width:50%;
   color: white;
+  text-align:center;
 }
 a{
   color: white;
   text-decoration: none;
   width:50%;
-  float:right;
-  text-align: right;
   margin-right:10px;
 }
 </style>
