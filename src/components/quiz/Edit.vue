@@ -25,7 +25,6 @@
 <script>
 import questions from "@/data/questions.json";
 import quizes from "@/data/quizes.json";
-import { setInterval, clearInterval } from "timers";
 
 export default {
   data() {
@@ -38,7 +37,6 @@ export default {
       currentQuestionAnswer: "",
       rightAnswer: "",
       questionIndex: 0,
-      score: 0,
       questionTitle: ""
     };
   },
@@ -49,7 +47,7 @@ export default {
     });
 
     this.setCurrentQuestion();
-    this.questionTitle = `Question #${this.questionIndex}: ${this.currentQuestion.title}`;
+    this.setTitle();
   },
   methods: {
     loadNextQuestion() {
@@ -57,26 +55,21 @@ export default {
         return;
       }
 
-      if (this.currentQuestionAnswer === this.rightAnswer) {
-        this.score++;
-      }
-
       this.hasQuestions = this.questionIndex < this.questions.length;
 
       if (this.hasQuestions) {
-        this.setCurrentQuestion();
+          this.setCurrentQuestion();
+          this.setTitle();
       }
+    },
+    setTitle(){
+        this.questionTitle = `Question #${this.questionIndex}: ${this.currentQuestion.title}`;
     },
     setCurrentQuestion() {
       this.currentQuestion = this.questions[this.questionIndex++];
       this.rightAnswer = this.currentQuestion.answers.find(
         q => q.isRight
       ).content;
-    }
-  },
-  computed: {
-    scorePercentage() {
-      return Math.trunc((this.score / this.questions.length) * 100);
     }
   }
 };
