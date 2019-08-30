@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="hasQuestions">
-      <h2>Question #{{questionNumber}}: {{currentQuestion.title}}</h2>
+      <h2>Question #{{questionIndex}}: {{currentQuestion.title}}</h2>
       <form @submit.prevent="loadNextQuestion">
         <div v-for="(answer, index) in currentQuestion.answers" :key="index">
           <input
@@ -39,7 +39,7 @@ export default {
       hasQuestions: true,
       currentQuestionAnswer: "",
       rightAnswer: "",
-      questionNumber: 1,
+      questionIndex: 0,
       score: 0,
       time: 60,
       interval: null
@@ -51,10 +51,7 @@ export default {
       this.questions.push(questions[id]);
     });
 
-    this.currentQuestion = this.questions.shift();
-    this.rightAnswer = this.currentQuestion.answers.find(
-      q => q.isRight
-    ).content;
+    this.setCurrentQuestion();
 
     this.interval = setInterval(() => {
       this.time--;
@@ -70,19 +67,22 @@ export default {
         this.score++;
       }
 
-      this.currentQuestion = this.questions.shift();
-      this.hasQuestions = this.currentQuestion !== undefined;
-      if (this.currentQuestion) {
-        this.questionNumber++;
-        this.rightAnswer = this.currentQuestion.answers.find(
-          q => q.isRight
-        ).content;
+      this.hasQuestions = this.questionIndex < this.questions.length;
+
+      if (this.hasQuestions) {
+        this.setCurrentQuestion();
       }
+    },
+    setCurrentQuestion() {
+      this.currentQuestion = this.questions[this.questionIndex++];
+      this.rightAnswer = this.currentQuestion.answers.find(
+        q => q.isRight
+      ).content;
     }
   },
   computed: {
     scorePercentage() {
-      return Math.trunc((this.score / this.questionNumber) * 100);
+      return Math.trunc((this.score / this.questions.length) * 100);
     }
   },
   watch: {
