@@ -1,7 +1,7 @@
 <template>
 <div>
   <h2>List of All Quizes</h2>
-  <section>
+  <section class="homeSection">
     <ul class="quiz-step step1 current">
       <li class="quiz" v-for="quiz in quizList" :key="quiz.id">
           <router-link :to="{ name: 'Quiz', params: { id: quiz.id }}">{{quiz.title}}</router-link>
@@ -38,7 +38,7 @@ h2{
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
-section {
+.homeSection {
   display: block;
   width: 60%;
   margin:auto;
