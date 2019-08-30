@@ -5,7 +5,7 @@
     <ul class="quiz-step step1 current">
       <li class="quiz" v-for="quiz in quizList" :key="quiz.id">
           <router-link :to="{ name: 'Quiz', params: { id: quiz.id }}">{{quiz.title}}</router-link>
-          <router-link class="edit" :to="{ name: 'edit', params: { id: quiz.id }}">Edit</router-link>
+          <router-link class="edit" :to="{ name: 'Edit', params: { id: quiz.id }}">Edit</router-link>
           <router-link class="edit" :to="{ name: 'AddQuestion', params: { id: quiz.id }}">Add Question</router-link>
       </li>
     </ul>
