@@ -14,7 +14,7 @@
           <input class="label" type="text" :placeholder="answer.content" />
         </div>
         <div class="buttons">
-          <input class="next edit" type="submit" v-on:click="edit()" value="Edit" />
+          <input class="next edit" type="button" v-on:click="edit()" value="Edit" />
           <!-- Fix Me -->
           <input class="next" type="submit" value="Next" />
         </div>
@@ -49,6 +49,7 @@ export default {
 
     this.setCurrentQuestion();
     this.setTitle();
+    this.edit();
   },
   methods: {
     loadNextQuestion() {
@@ -69,6 +70,9 @@ export default {
       this.rightAnswer = this.currentQuestion.answers.find(
         q => q.isRight
       ).content;
+    },
+    edit(){
+        console.log("edited");
     }
   }
 };
