@@ -27,15 +27,14 @@ export default {
   padding:0;
 }
 footer{
-  background-color: rgba(19, 18, 18, 0.904);
-  padding: 10px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
-  width: -webkit-fill-available;
-    bottom: 0;
-    height: 20px;
-    margin: 0 auto;
-    display:flex;
+   margin-top: 50px;
+    text-align: center;
+    background-color: rgba(19, 18, 18, 0.904);
+    padding: 20px 0;
+    color: white;
+    position:absolute;
+    bottom:0;
+    width:100%;
 }
 footer div a{
   display:inline-block;
@@ -50,7 +49,7 @@ footer div{
 a{
   color: white;
   text-decoration: none;
-  width:50%;
+  width:10%;
   margin-right:10px;
 }
 </style>

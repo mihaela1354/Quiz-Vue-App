@@ -4,15 +4,13 @@
   <section>
     <ul class="quiz-step step1 current">
       <li class="quiz" v-for="quiz in quizList" :key="quiz.id">
-        <div>
           <router-link :to="{ name: 'Quiz', params: { id: quiz.id }}">{{quiz.title}}</router-link>
           <router-link class="edit" :to="{ name: 'edit', params: { id: quiz.id }}">Edit</router-link>
-        </div>
       </li>
-      <div>
-        <router-link id="addQuiz" to="/quiz/add">Add Quiz</router-link>
-      </div>
     </ul>
+    <div>
+        <router-link id="addQuiz" to="/quiz/add">Add Quiz</router-link>
+    </div>
   </section>
   </div>
 </template>
@@ -44,7 +42,7 @@ section {
   display: block;
   width: 60%;
   margin:auto;
-  height:600px;
+  height:30rem;
   margin-top: 1.5rem;
   background-color: rgb(226, 225, 225);
   box-shadow: 0 0 40px -10px #000;
