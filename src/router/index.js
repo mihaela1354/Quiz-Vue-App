@@ -39,7 +39,7 @@ export default new Router({
       component: AddQuiz
     },
     {
-      path:'/quiz/addQuestion',
+      path:'/quiz/addQuestion/:id',
       name: 'AddQuestion',
       component: AddQuestion
     }
