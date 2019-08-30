@@ -42,6 +42,11 @@ export default new Router({
       path:'/quiz/addQuestion/:id',
       name: 'AddQuestion',
       component: AddQuestion
+    },
+    {
+      path:'/quiz/edit/:id',
+      name: 'Edit',
+      component: Edit
     }
   ]
 })
