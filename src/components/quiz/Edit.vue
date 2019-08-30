@@ -14,8 +14,9 @@
           <input class="label" type="text" :placeholder="answer.content" />
         </div>
         <div class="buttons">
-        <input class="next edit" type="submit" value="Edit" />
-        <input class="next" type="submit" value="Next" />
+          <input class="next edit" type="submit" v-on:click="edit()" value="Edit" />
+          <!-- Fix Me -->
+          <input class="next" type="submit" value="Next" />
         </div>
       </form>
     </template>
@@ -51,19 +52,17 @@ export default {
   },
   methods: {
     loadNextQuestion() {
-      if (this.currentQuestionAnswer === "") {
-        return;
-      }
-
       this.hasQuestions = this.questionIndex < this.questions.length;
 
       if (this.hasQuestions) {
-          this.setCurrentQuestion();
-          this.setTitle();
+        this.setCurrentQuestion();
+        this.setTitle();
+      }else{
+          this.$router.push('/');
       }
     },
-    setTitle(){
-        this.questionTitle = `Question #${this.questionIndex}: ${this.currentQuestion.title}`;
+    setTitle() {
+      this.questionTitle = `Question #${this.questionIndex}: ${this.currentQuestion.title}`;
     },
     setCurrentQuestion() {
       this.currentQuestion = this.questions[this.questionIndex++];
@@ -85,15 +84,16 @@ export default {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .h2 {
+  width: 100%;
   font-size: 19px;
   font-weight: bold;
-  color:#000;
+  color: #000;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow:0 0 40px -10px rgb(195, 192, 192);
+  box-shadow: 0 0 40px -10px rgb(195, 192, 192);
   border-style: none;
-  border-radius:10px;
-  padding:10px;
+  border-radius: 10px;
+  padding: 10px;
 }
 form {
   background-color: rgb(226, 225, 225);
@@ -146,11 +146,11 @@ div input,
   font-size: 19px;
   text-align: left;
   padding-left: 20px;
-  background-color:transparent;
-  border-style:none;
+  background-color: transparent;
+  border-style: none;
   border-bottom: solid;
-  border-color:rgba(102, 102, 102, 0.787);
-  margin-bottom:10px;
+  border-color: rgba(102, 102, 102, 0.787);
+  margin-bottom: 10px;
 }
 form div {
   background-color: rgba(123, 143, 136, 0.171);
@@ -176,16 +176,16 @@ form div {
   font-size: 25px;
   color: darkgreen;
 }
-.buttons input{
-    width:40%;
-    display:inline-block;
-    margin-left:10px;
-    margin-right:10px;
+.buttons input {
+  width: 40%;
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-.edit{
-    border-color:rgb(27, 27, 141);
+.edit {
+  border-color: rgb(27, 27, 141);
 }
-.buttons input:hover{
-    cursor: pointer;
+.buttons input:hover {
+  cursor: pointer;
 }
 </style>
