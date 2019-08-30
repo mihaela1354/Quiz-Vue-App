@@ -30,7 +30,7 @@ footer{
   background-color: rgba(19, 18, 18, 0.904);
   padding: 10px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  position: absolute;
+
   width: -webkit-fill-available;
     bottom: 0;
     height: 20px;
