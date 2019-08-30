@@ -1,0 +1,38 @@
+{
+  "1": {
+    "title": "How are you?",
+    "answers": [{ "content": "Great", "isRight": true }, { "content": "Bad", "isRight": false}, { "content": "Ok", "isRight": false}]
+  },
+  "2": {
+    "title": "Your age is?",
+    "answers": [{ "content": "22", "isRight": true }, { "content": "18", "isRight": false}, { "content": "30", "isRight": false}]
+  },
+  "3": {
+    "title": "Your name is?",
+    "answers": [{ "content": "Kiro", "isRight": true }, { "content": "Pesho", "isRight": false}, { "content": "Stamat", "isRight": false}]
+  },
+  "4": {
+    "title": "Where do you live?",
+    "answers": [{ "content": "Sofia", "isRight": false }, { "content": "Pernik", "isRight": false}, { "content": "Vraca", "isRight": true}]
+  },
+  "5": {
+    "title": "What color do you like?",
+    "answers": [{ "content": "blue", "isRight": false }, { "content": "green", "isRight": true}, { "content": "yellow", "isRight": false}]
+  },
+  "6": {
+    "title": "What is your favourite drink?",
+    "answers": [{ "content": "frape", "isRight": true }, { "content": "tea", "isRight": false}, { "content": "water", "isRight": false}]
+  },
+  "7": {
+    "title": "What is this project about?",
+    "answers": [{ "content": "PWA", "isRight": true }, { "content": "JS", "isRight": false}, { "content": "Node.js", "isRight": false}]
+  },
+  "8": {
+    "title": "What is the purpose of life?",
+    "answers": [{ "content": "Beer", "isRight": true }, { "content": "Happiness", "isRight": false}, { "content": "-1/12", "isRight": false}]
+  },
+  "9": {
+    "title": "2 + 2 = ?",
+    "answers": [{ "content": "4", "isRight": true }, { "content": "8", "isRight": false}, { "content": "-1/12", "isRight": false}]
+  }
+}
