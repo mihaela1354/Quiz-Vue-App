@@ -1,0 +1,12 @@
+{
+  "1": {
+    "id": 1,
+    "title": "First Quiz",
+    "questionIds": [ 1,2,3 ]
+  },
+  "2": {
+    "id": 2,
+    "title": "Second Quiz",
+    "questionIds": [ 4,5,6 ]
+  }
+}
