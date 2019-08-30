@@ -11,7 +11,7 @@
             v-model="currentQuestionAnswer"
             checked
           />
-          <label>{{answer.content}}</label>
+          <input class="label" type="text" :placeholder="answer.content" />
         </div>
         <div class="buttons">
         <input class="next edit" type="submit" value="Edit" />
@@ -109,7 +109,7 @@ form {
   padding: 2rem 5rem 2rem 5rem;
 }
 div input,
-label {
+.label {
   display: inline-block;
   margin: 5px;
 }
@@ -142,9 +142,9 @@ label {
   background-color: #f7f7f7;
 }
 .form-radio:checked {
-  background-color: #f1f1f1;
+  background-color: #fffbfb;
 }
-label {
+.label {
   font: 15px/1.7 "Open Sans", sans-serif;
   color: #333;
   -webkit-font-smoothing: antialiased;
@@ -153,6 +153,11 @@ label {
   font-size: 19px;
   text-align: left;
   padding-left: 20px;
+  background-color:transparent;
+  border-style:none;
+  border-bottom: solid;
+  border-color:rgba(102, 102, 102, 0.787);
+  margin-bottom:10px;
 }
 form div {
   background-color: rgba(123, 143, 136, 0.171);
