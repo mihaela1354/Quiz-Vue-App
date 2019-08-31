@@ -7,7 +7,7 @@
           <router-link :to="{ name: 'Quiz', params: { id: quiz.id }}">{{quiz.title}}</router-link>
           <router-link class="edit" :to="{ name: 'Edit', params: { id: quiz.id }}">Edit</router-link>
           <router-link class="edit" :to="{ name: 'AddQuestion', params: { id: quiz.id }}">Add Question</router-link>
-          <router-link class="edit" :to="{ name: 'Delete', params: { id: quiz.id }}">Delete</router-link>
+          <router-link class="edit" v-on:click="removeQuiz()" >Delete</router-link>
       </li>
     </ul>
     <div>
