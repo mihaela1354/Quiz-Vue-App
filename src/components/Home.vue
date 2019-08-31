@@ -1,19 +1,19 @@
 <template>
-<div>
-  <h2>List of All Quizes</h2>
-  <section class="homeSection">
-    <ul class="quiz-step step1 current">
-      <li class="quiz" v-for="quiz in quizList" :key="quiz.id">
+  <div>
+    <h2>List of All Quizes</h2>
+    <section class="homeSection">
+      <ul class="quiz-step step1 current">
+        <li class="quiz" v-for="quiz in quizList" :key="quiz.id">
           <router-link :to="{ name: 'Quiz', params: { id: quiz.id }}">{{quiz.title}}</router-link>
           <router-link class="edit" :to="{ name: 'Edit', params: { id: quiz.id }}">Edit</router-link>
           <router-link class="edit" :to="{ name: 'AddQuestion', params: { id: quiz.id }}">Add Question</router-link>
-          <router-link class="edit" v-on:click="removeQuiz()" >Delete</router-link>
-      </li>
-    </ul>
-    <div>
+          <button class="edit" v-bind="quiz.id" v-on:click="remove()">Delete</button>
+        </li>
+      </ul>
+      <div>
         <router-link id="addQuiz" to="/quiz/add">Add Quiz</router-link>
-    </div>
-  </section>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -25,17 +25,26 @@ export default {
     return {
       quizList: quizes
     };
+  },
+  created() {
+    this.remove();
+  },
+  methods: {
+    remove() {
+      console.log(this.quizList);
+    }
   }
 };
 </script>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-h2{
+h2 {
   text-align: center;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -43,8 +52,8 @@ h2{
 .homeSection {
   display: block;
   width: 60%;
-  margin:auto;
-  height:30rem;
+  margin: auto;
+  height: 30rem;
   margin-top: 1.5rem;
   background-color: rgb(226, 225, 225);
   box-shadow: 0 0 40px -10px #000;
@@ -61,7 +70,7 @@ li {
   border-radius: 5px;
   padding: 15px;
 }
-li a:hover{
+li a:hover {
   cursor: pointer;
   color: black;
   font-size: 20px;
@@ -80,10 +89,14 @@ a {
 .edit {
   float: right;
   margin-right: 20px;
-  font-size:15px;
+  font-size: 15px;
 }
-.edit:hover{
-  font-size:17px;
+.edit:hover {
+  font-size: 17px;
+}
+button {
+  background-color: transparent;
+  border: none;
 }
 #addQuiz {
   -webkit-font-smoothing: antialiased;
