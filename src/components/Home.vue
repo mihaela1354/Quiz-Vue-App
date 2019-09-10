@@ -3,12 +3,20 @@
     <h2>List of All Quizes</h2>
     <section class="homeSection">
       <ul class="quiz-step step1 current">
-        <li class="quiz" v-for="quiz in quizList" :key="quiz.id">
-          <router-link :to="{ name: 'Quiz', params: { id: quiz.id }}">{{quiz.title}}</router-link>
-          <router-link v-if="isLoggedIn" class="edit" :to="{ name: 'Edit', params: { id: quiz.id }}">Edit</router-link>
-          <router-link v-if="isLoggedIn" class="edit" :to="{ name: 'AddQuestion', params: { id: quiz.id }}">Add Question</router-link>
-          <button v-if="isLoggedIn" class="edit" v-on:click="remove()">Delete</button>
-        </li>
+          <li class="quiz" v-for="quiz in quizList" :key="quiz._id">
+            <router-link :to="{ name: 'Quiz', params: { id: quiz._id }}">{{quiz.title}}</router-link>
+            <router-link
+              v-if="isLoggedIn"
+              class="edit"
+              :to="{ name: 'Edit', params: { id: quiz._id }}"
+            >Edit</router-link>
+            <router-link
+              v-if="isLoggedIn"
+              class="edit"
+              :to="{ name: 'AddQuestion', params: { id: quiz._id }}"
+            >Add Question</router-link>
+            <button v-if="isLoggedIn" class="edit" v-on:click="remove()">Delete</button>
+          </li>
       </ul>
       <div>
         <router-link v-if="isLoggedIn" id="addQuiz" to="/quiz/add">Add Quiz</router-link>
@@ -18,15 +26,18 @@
 </template>
 
 <script>
-import quizes from "@/data/quizes.json";
-import { userService } from '@/mixins/user-service.js';
+import requester from '@/data/requester.js';
+import { quizService } from '@/mixins/quiz-service.js';
 
 export default {
-  props: [ 'isLoggedIn' ],
+  props: ["isLoggedIn"],
   data() {
     return {
-      quizList: quizes
+      quizList: null
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    quizService.methods.listAllQuizzes(next);
   }
 };
 </script>

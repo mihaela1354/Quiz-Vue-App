@@ -11,8 +11,17 @@ export const quizService = {
       requester.post('quizzes', 'appdata', 'Kinvey', payload)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           this.$router.push('/');
+        })
+        .catch(console.error);
+    },
+    listAllQuizzes(next) {
+      requester.get('quizzes', 'appdata', 'Kinvey')
+        .then((res) => res.json())
+        .then((data) => {
+          next(vm => {
+            vm.quizList = data;
+          });
         })
         .catch(console.error);
     }
