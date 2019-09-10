@@ -7,7 +7,7 @@
           <router-link :to="{ name: 'Quiz', params: { id: quiz.id }}">{{quiz.title}}</router-link>
           <router-link class="edit" :to="{ name: 'Edit', params: { id: quiz.id }}">Edit</router-link>
           <router-link class="edit" :to="{ name: 'AddQuestion', params: { id: quiz.id }}">Add Question</router-link>
-          <button class="edit" v-bind="quiz.id" v-on:click="remove()">Delete</button>
+          <button class="edit" v-on:click="remove()">Delete</button>
         </li>
       </ul>
       <div>
@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     remove() {
-      console.log(this.quizList);
     }
   }
 };

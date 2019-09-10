@@ -4,19 +4,42 @@
     <form @submit.prevent="add">
       <section>
         <h4>Title</h4>
-        <input class="input" type="text" name="quizTitle" placeholder="Enter the title of the quiz" />
+        <input
+          class="input"
+          v-model="title"
+          type="text"
+          name="quizTitle"
+          placeholder="Enter the title of the quiz"
+        />
       </section>
-       <input class="add" type="submit" value="Add" />
+      <input class="add" type="submit" value="Add" />
     </form>
   </div>
 </template>
 
 <script>
+import quizes from '@/data/quizes.json';
+
 export default {
   data() {
-    return {};
+    return {
+      title: ""
+    };
   },
-  methods: {}
+  methods: {
+    add() {
+      const id = this.uid;
+      
+      quizes[id] = {
+        id,
+        title: this.title,
+        questionIds: []
+      };
+
+
+      this.$router.push('/');
+    }
+  }
 };
 </script>
 
@@ -60,8 +83,8 @@ div input {
   display: inline-block;
   margin: 5px;
 }
-.add{
-    background-color: rgba(193, 214, 207, 0.603);
+.add {
+  background-color: rgba(193, 214, 207, 0.603);
   width: 105%;
   margin-bottom: 9px;
   margin-top: 9px;
