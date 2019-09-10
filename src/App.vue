@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <app-header></app-header>
+    <app-header  @onChangeHeader="changeHeader" :isLoggedIn="isLoggedIn"></app-header>
     <main>
-      <router-view></router-view>
+      <router-view @onChangeHeader="changeHeader"></router-view>
     </main>
     <app-footer></app-footer>
   </div>
@@ -14,13 +14,23 @@ import FooterVue from './components/common/Footer.vue';
 
 export default {
   name: 'app',
+  data() {
+    return {
+      isLoggedIn: false
+    }
+  },
   components: {
     appHeader: HeaderVue,
     appFooter: FooterVue
+  },
+  methods: {
+    changeHeader(e) {
+      console.log(e);
+      this.isLoggedIn = e;
+    }
   }
 }
 </script>
 
 <style>
-
 </style>

@@ -25,13 +25,6 @@ export default {
     return {
       quizList: quizes
     };
-  },
-  created() {
-    this.remove();
-  },
-  methods: {
-    remove() {
-    }
   }
 };
 </script>

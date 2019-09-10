@@ -19,6 +19,7 @@
 
 <script>
 import quizes from '@/data/quizes.json';
+import requester from '@/data/requester.js';
 
 export default {
   data() {
@@ -29,7 +30,8 @@ export default {
   methods: {
     add() {
       const id = this.uid;
-      
+      console.log(requester);
+
       quizes[id] = {
         id,
         title: this.title,
@@ -39,6 +41,9 @@ export default {
 
       this.$router.push('/');
     }
+  },
+  created() {
+    console.log(requester);
   }
 };
 </script>

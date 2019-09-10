@@ -1,7 +1,7 @@
 <template>
 <div>
     <h3>Login</h3>
-    <form @submit.prevent="login">
+    <form @submit.prevent="login()">
         <input class="input" v-model="username" type="text" name="username" placeholder="username" />
         <input class="input" v-model="password" type="password" name="password" placeholder="password" />
       <input class="login" type="submit" value="Login" />
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { userService } from '@/mixins/user-service.js';
+
 export default {
   data() {
     return {
@@ -21,12 +23,7 @@ export default {
       password: ""
     };
   },
-  methods: {
-    login() {
-      console.log(this.username);
-      console.log("Logging In!");
-    }
-  }
+  mixins: [ userService ]
 };
 </script>
 
