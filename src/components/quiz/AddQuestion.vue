@@ -6,20 +6,21 @@
         <input
           class="input"
           type="text"
+          v-model="title"
           name="questionTitle"
           placeholder="Enter the title of the question"
         />
         <div>
-          <input class="form-radio" name="answer" type="radio" />
-          <input class="label" type="text" placeholder="First Answer" />
+          <input class="form-radio" v-model="correctAnswer" value="first" type="radio" />
+          <input class="label" v-model="firstAnswer" type="text" placeholder="First Answer" />
         </div>
         <div>
-          <input class="form-radio" name="answer" type="radio" />
-          <input class="label" type="text" placeholder="Second Answer" />
+          <input class="form-radio" v-model="correctAnswer" value="second" type="radio" />
+          <input class="label" v-model="secondAnswer" type="text" placeholder="Second Answer" />
         </div>
         <div>
-          <input class="form-radio" name="answer" type="radio" />
-          <input class="label" type="text" placeholder="Third Answer" />
+          <input class="form-radio" v-model="correctAnswer" value="third" type="radio" />
+          <input class="label" v-model="thirdAnswer" type="text" placeholder="Third Answer" />
         </div>
         <input class="add" type="submit" value="Add" />
       </section>
@@ -28,15 +29,18 @@
 </template>
 
 <script>
+import { questionService } from '@/mixins/question-service.js';
 export default {
   data() {
-    return {};
+    return {
+      title: '',
+      correctAnswer: '',
+      firstAnswer: '',
+      secondAnswer: '',
+      thirdAnswer: '',
+    };
   },
-  methods: {
-
-  },
-  created() {
-  }
+  mixins: [ questionService ]
 };
 </script>
 
