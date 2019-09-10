@@ -7,6 +7,7 @@ import Register from '@/components/auth/Register.vue';
 import Quiz from '@/components/quiz/Quiz.vue';
 import AddQuiz from '@/components/quiz/AddQuiz.vue';
 import AddQuestion from '@/components/quiz/AddQuestion.vue';
+import Edit from '@/components/quiz/Edit.vue';
 
 Vue.use(Router);
 
@@ -42,6 +43,11 @@ export default new Router({
       path:'/quiz/addQuestion/:id',
       name: 'AddQuestion',
       component: AddQuestion
+    },
+    {
+      path:'/quiz/edit/:id',
+      name: 'Edit',
+      component: Edit
     }
   ]
 })
