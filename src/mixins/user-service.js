@@ -2,9 +2,6 @@ import requester from '@/data/requester.js';
 
 export const userService = {
   methods: {
-    isAuth() {
-      return sessionStorage.getItem('token') !== null;
-    },
     register() {
       const username = this.username;
       const password = this.password;
@@ -51,6 +48,11 @@ export const userService = {
           // this.$router.push('/');
         })
         .catch(console.error);
+    }
+  },
+  computed: {
+    isAuth() {
+      return sessionStorage.getItem('token') !== null;
     }
   }
 };

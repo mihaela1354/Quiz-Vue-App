@@ -2,7 +2,7 @@
   <div id="app">
     <app-header  @onChangeHeader="changeHeader" :isLoggedIn="isLoggedIn"></app-header>
     <main>
-      <router-view @onChangeHeader="changeHeader"></router-view>
+      <router-view @onChangeHeader="changeHeader" :isLoggedIn="isLoggedIn"></router-view>
     </main>
     <app-footer></app-footer>
   </div>
@@ -25,7 +25,6 @@ export default {
   },
   methods: {
     changeHeader(e) {
-      console.log(e);
       this.isLoggedIn = e;
     }
   }

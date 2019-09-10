@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Add New Quiz</h2>
-    <form @submit.prevent="add">
+    <form @submit.prevent="createQuiz">
       <section>
         <h4>Title</h4>
         <input
@@ -18,8 +18,7 @@
 </template>
 
 <script>
-import quizes from '@/data/quizes.json';
-import requester from '@/data/requester.js';
+import { quizService } from '@/mixins/quiz-service.js';
 
 export default {
   data() {
@@ -27,24 +26,7 @@ export default {
       title: ""
     };
   },
-  methods: {
-    add() {
-      const id = this.uid;
-      console.log(requester);
-
-      quizes[id] = {
-        id,
-        title: this.title,
-        questionIds: []
-      };
-
-
-      this.$router.push('/');
-    }
-  },
-  created() {
-    console.log(requester);
-  }
+  mixins: [ quizService ]
 };
 </script>
 

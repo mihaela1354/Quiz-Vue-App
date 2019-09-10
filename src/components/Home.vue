@@ -5,13 +5,13 @@
       <ul class="quiz-step step1 current">
         <li class="quiz" v-for="quiz in quizList" :key="quiz.id">
           <router-link :to="{ name: 'Quiz', params: { id: quiz.id }}">{{quiz.title}}</router-link>
-          <router-link class="edit" :to="{ name: 'Edit', params: { id: quiz.id }}">Edit</router-link>
-          <router-link class="edit" :to="{ name: 'AddQuestion', params: { id: quiz.id }}">Add Question</router-link>
-          <button class="edit" v-on:click="remove()">Delete</button>
+          <router-link v-if="isLoggedIn" class="edit" :to="{ name: 'Edit', params: { id: quiz.id }}">Edit</router-link>
+          <router-link v-if="isLoggedIn" class="edit" :to="{ name: 'AddQuestion', params: { id: quiz.id }}">Add Question</router-link>
+          <button v-if="isLoggedIn" class="edit" v-on:click="remove()">Delete</button>
         </li>
       </ul>
       <div>
-        <router-link id="addQuiz" to="/quiz/add">Add Quiz</router-link>
+        <router-link v-if="isLoggedIn" id="addQuiz" to="/quiz/add">Add Quiz</router-link>
       </div>
     </section>
   </div>
@@ -19,8 +19,10 @@
 
 <script>
 import quizes from "@/data/quizes.json";
+import { userService } from '@/mixins/user-service.js';
 
 export default {
+  props: [ 'isLoggedIn' ],
   data() {
     return {
       quizList: quizes
