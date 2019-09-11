@@ -11,7 +11,6 @@
             v-if="isAuthor(quiz)"
             :to="{ name: 'AddQuestion', params: { id: quiz._id }}"
           >Add Question</router-link>
-          <button v-if="isAuthor(quiz)" class="edit" v-on:click="remove()">Delete</button>
         </li>
       </ul>
       <div>

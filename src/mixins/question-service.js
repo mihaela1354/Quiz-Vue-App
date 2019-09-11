@@ -35,10 +35,6 @@ export const questionService = {
       const id = this.currentQuestion._id;
 
       requester.put(`questions/${id}`, 'appdata', 'Kinvey', this.currentQuestion)
-        .then((res) => res.json())
-        .then((q) => {
-          console.log(q);
-        })
         .catch(console.error);
     },
     async getAllQuestions(questionIds) {
