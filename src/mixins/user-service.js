@@ -16,6 +16,7 @@ export const userService = {
         .then((userInfo) => {
           sessionStorage.setItem('token', userInfo._kmd.authtoken);
           sessionStorage.setItem('username', userInfo.username);
+          sessionStorage.setItem('userId', userInfo._id);
           this.$emit('onChangeHeader', true);
           this.$router.push('/');
         })
@@ -35,6 +36,7 @@ export const userService = {
         .then((userInfo) => {
           sessionStorage.setItem('token', userInfo._kmd.authtoken);
           sessionStorage.setItem('username', userInfo.username);
+          sessionStorage.setItem('userId', userInfo._id);
           this.$emit('onChangeHeader', true);
           this.$router.push('/');
         })
@@ -45,7 +47,6 @@ export const userService = {
         .then(() => {
           sessionStorage.clear();
           this.$emit('onChangeHeader', false);
-          // this.$router.push('/');
         })
         .catch(console.error);
     }

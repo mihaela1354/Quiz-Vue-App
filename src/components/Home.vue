@@ -5,21 +5,22 @@
       <ul class="quiz-step step1 current">
         <li class="quiz" v-for="quiz in quizList" :key="quiz._id">
           <router-link :to="{ name: 'Quiz', params: { id: quiz._id }}">{{quiz.title}}</router-link>
-          <router-link class="edit" :to="{ name: 'Edit', params: { id: quiz._id }}">Edit</router-link>
+          <router-link v-if="isAuthor(quiz)" class="edit" :to="{ name: 'Edit', params: { id: quiz._id }}">Edit</router-link>
           <router-link
             class="edit"
+            v-if="isAuthor(quiz)"
             :to="{ name: 'AddQuestion', params: { id: quiz._id }}"
           >Add Question</router-link>
-          <button v-if="isLoggedIn" class="edit" v-on:click="remove()">Delete</button>
+          <button v-if="isAuthor(quiz)" class="edit" v-on:click="remove()">Delete</button>
         </li>
       </ul>
       <div>
-        <router-link v-if="isLoggedIn" id="addQuiz" to="/quiz/add">Add Quiz</router-link>
+        <router-link id="addQuiz" to="/quiz/add">Add Quiz</router-link>
       </div>
     </section>
     <section v-else>
       <h2>Welcome to Quiz App!</h2>
-      <p class="welcome"><router-link to="/login"> Please Login In</router-link></p>
+      <p class="welcome"><router-link to="/login"> Please Login</router-link></p>
     </section>
   </div>
 </template>
@@ -37,6 +38,11 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     quizService.methods.listAllQuizzes(next);
+  },
+  methods: {
+    isAuthor(quiz) {
+      return sessionStorage.getItem('userId') === quiz._acl.creator;
+    }
   }
 };
 </script>

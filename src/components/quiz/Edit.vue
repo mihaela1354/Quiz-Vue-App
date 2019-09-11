@@ -1,31 +1,33 @@
 <template>
   <div>
     <template v-if="hasQuestions">
-      <input class="h2" type="text" :placeholder="questionTitle" />
-      <form @submit.prevent="loadNextQuestion">
-        <div v-for="(answer, index) in currentQuestion.answers" :key="index">
-          <input
-            class="form-radio"
-            type="radio"
-            :value="answer.content"
-            v-model="currentQuestionAnswer"
-            checked
-          />
-          <input class="label" type="text" :placeholder="answer.content" />
-        </div>
-        <div class="buttons">
-          <input class="next edit" type="button" v-on:click="edit()" value="Edit" />
-          <!-- Fix Me -->
-          <input class="next" type="submit" value="Next" />
-        </div>
-      </form>
+      <template v-if="currentQuestion">
+        <input class="h2" type="text" v-model="currentQuestion.title" />
+        <form @submit.prevent="loadNextQuestion">
+          <div v-for="(answer, index) in currentQuestion.answers" :key="index">
+            <input
+              class="form-radio"
+              type="radio"
+              v-model="rightAnswer"
+              :value="answer.content"
+              checked
+            />
+            <input class="label" type="text" v-model="answer.content" />
+          </div>
+          <div class="buttons">
+            <input class="next edit" type="button" v-on:click="edit()" value="Edit" />
+            <!-- Fix Me -->
+            <input class="next" type="submit" value="Next" />
+          </div>
+        </form>
+      </template>
     </template>
   </div>
 </template>
 
 <script>
-import questions from "@/data/questions.json";
-import quizes from "@/data/quizes.json";
+import { questionService } from "@/mixins/question-service.js";
+import { quizService } from "@/mixins/quiz-service.js";
 
 export default {
   data() {
@@ -35,21 +37,16 @@ export default {
       questions: [],
       currentQuestion: null,
       hasQuestions: true,
-      currentQuestionAnswer: "",
       rightAnswer: "",
       questionIndex: 0,
       questionTitle: ""
     };
   },
-  created() {
-    this.quiz = quizes[this.quizId];
-    this.quiz.questionIds.forEach(id => {
-      this.questions.push(questions[id]);
-    });
+  async created() {
+    this.quiz = await this.getById();
+    this.questions = await this.getAllQuestions(this.quiz.questionIds);
 
     this.setCurrentQuestion();
-    this.setTitle();
-    this.edit();
   },
   methods: {
     loadNextQuestion() {
@@ -57,24 +54,28 @@ export default {
 
       if (this.hasQuestions) {
         this.setCurrentQuestion();
-        this.setTitle();
-      }else{
-          this.$router.push('/');
+      } else {
+        this.$router.push("/");
       }
-    },
-    setTitle() {
-      this.questionTitle = `Question #${this.questionIndex}: ${this.currentQuestion.title}`;
     },
     setCurrentQuestion() {
       this.currentQuestion = this.questions[this.questionIndex++];
+
       this.rightAnswer = this.currentQuestion.answers.find(
         q => q.isRight
       ).content;
     },
-    edit(){
-        console.log("edited");
+    edit() {
+      // Change right answer
+      this.currentQuestion.answers.find(q => q.isRight)
+        .isRight = false;
+      this.currentQuestion.answers.find(q => q.content === this.rightAnswer)
+        .isRight = true;
+      
+      this.editQuestion();
     }
-  }
+  },
+  mixins: [questionService, quizService]
 };
 </script>
 

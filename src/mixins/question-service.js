@@ -31,6 +31,16 @@ export const questionService = {
         })
         .catch(console.error);
     },
+    editQuestion() {
+      const id = this.currentQuestion._id;
+
+      requester.put(`questions/${id}`, 'appdata', 'Kinvey', this.currentQuestion)
+        .then((res) => res.json())
+        .then((q) => {
+          console.log(q);
+        })
+        .catch(console.error);
+    },
     async getAllQuestions(questionIds) {
       const response = await requester
         .get(`questions?query={ "_id": { "$in": [ ${questionIds.map(q => `"${q}"`).join(", ")} ] } }`, 'appdata', 'Kinvey');
