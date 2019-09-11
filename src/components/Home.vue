@@ -1,33 +1,32 @@
 <template>
   <div>
-    <h2>List of All Quizes</h2>
-    <section class="homeSection">
+    <section v-if="isLoggedIn" class="homeSection">
+      <h2>List of All Quizes</h2>
       <ul class="quiz-step step1 current">
-          <li class="quiz" v-for="quiz in quizList" :key="quiz._id">
-            <router-link :to="{ name: 'Quiz', params: { id: quiz._id }}">{{quiz.title}}</router-link>
-            <router-link
-              v-if="isLoggedIn"
-              class="edit"
-              :to="{ name: 'Edit', params: { id: quiz._id }}"
-            >Edit</router-link>
-            <router-link
-              v-if="isLoggedIn"
-              class="edit"
-              :to="{ name: 'AddQuestion', params: { id: quiz._id }}"
-            >Add Question</router-link>
-            <button v-if="isLoggedIn" class="edit" v-on:click="remove()">Delete</button>
-          </li>
+        <li class="quiz" v-for="quiz in quizList" :key="quiz._id">
+          <router-link :to="{ name: 'Quiz', params: { id: quiz._id }}">{{quiz.title}}</router-link>
+          <router-link class="edit" :to="{ name: 'Edit', params: { id: quiz._id }}">Edit</router-link>
+          <router-link
+            class="edit"
+            :to="{ name: 'AddQuestion', params: { id: quiz._id }}"
+          >Add Question</router-link>
+          <button v-if="isLoggedIn" class="edit" v-on:click="remove()">Delete</button>
+        </li>
       </ul>
       <div>
         <router-link v-if="isLoggedIn" id="addQuiz" to="/quiz/add">Add Quiz</router-link>
       </div>
     </section>
+    <section v-else>
+      <h2>Welcome to Quiz App!</h2>
+      <p class="welcome"><router-link to="/login"> Please Login In</router-link></p>
+    </section>
   </div>
 </template>
 
 <script>
-import requester from '@/data/requester.js';
-import { quizService } from '@/mixins/quiz-service.js';
+import requester from "@/data/requester.js";
+import { quizService } from "@/mixins/quiz-service.js";
 
 export default {
   props: ["isLoggedIn"],
@@ -53,6 +52,9 @@ h2 {
   text-align: center;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+.welcome {
+  text-align: center;
 }
 .homeSection {
   display: block;

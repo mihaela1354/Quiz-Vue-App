@@ -25,9 +25,11 @@
 </template>
 
 <script>
-import questions from "@/data/questions.json";
-import quizes from "@/data/quizes.json";
 import { setInterval, clearInterval } from "timers";
+
+import { questionService } from '@/mixins/question-service.js';
+import { quizService } from '@/mixins/quiz-service.js';
+
 
 export default {
   data() {
@@ -45,11 +47,9 @@ export default {
       interval: null
     };
   },
-  created() {
-    this.quiz = quizes[this.quizId];
-    this.quiz.questionIds.forEach(id => {
-      this.questions.push(questions[id]);
-    });
+  async created() {
+    this.quiz = await this.getById();
+    this.questions = await this.getAllQuestions(this.quiz.questionIds);
 
     this.setCurrentQuestion();
 
@@ -95,7 +95,8 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.interval);
-  }
+  },
+  mixins: [ questionService, quizService ]
 };
 </script>
 

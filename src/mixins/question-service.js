@@ -17,7 +17,7 @@ export const questionService = {
       requester.post('questions', 'appdata', 'Kinvey', payload)
         .then((res) => res.json())
         .then((question) => {
-          requester.get(`quizzes/${this.$route.params.id}`, 'appdata', 'Kinve')
+          requester.get(`quizzes/${this.$route.params.id}`, 'appdata', 'Kinvey')
             .then((res) => res.json())
             .then((quiz) => {
               quiz.questionIds.push(question._id);
@@ -30,6 +30,12 @@ export const questionService = {
             });
         })
         .catch(console.error);
+    },
+    async getAllQuestions(questionIds) {
+      const response = await requester
+        .get(`questions?query={ "_id": { "$in": [ ${questionIds.map(q => `"${q}"`).join(", ")} ] } }`, 'appdata', 'Kinvey');
+
+      return response.json();
     }
   }
 }

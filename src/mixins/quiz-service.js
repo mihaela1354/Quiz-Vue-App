@@ -25,24 +25,12 @@ export const quizService = {
         })
         .catch(console.error);
     },
-    addQuestion() {
-      const answers = [
-        { content: this.firstAnswer, isRight: this.correct === 'first' },
-        { content: this.secondAnswer, isRight: this.correct === 'second' },
-        { content: this.thirdAnswer, isRight: this.correct === 'third' }
-      ];
+    async getById() {
+      const id = this.quizId;
 
-      const payload = {
-        title: this.title,
-        answers
-      };
-
-      requester.post('questions', 'appdata', 'Kinvey', payload)
-        .then((res) => res.json())
-        .then(() => {
-          this.$router.push('/');
-        })
-        .catch(console.error);
+      const response = await requester.get(`quizzes/${id}`, 'appdata', 'Kinvey');
+      
+      return response.json();
     }
   }
 }
